@@ -4,9 +4,31 @@ const app = express();
 app.use(express.json())  
 
 app.post('/', async(req, res) => {
-    console.log("===>"+req.body)
-    await main(req.body)
-    res.send("success")
+    try{
+        console.log("===>"+req.body)
+        await main(req.body)
+        res.send("success")
+    }catch(err){
+        res.send("error")
+    } 
+});
+
+app.get('/pdf', async(req, res) => {
+    try{
+        const {url} = req.query
+        if(!url){
+            return res.send('url required')
+        }
+        console.log(`Executing URL --> ${url}`)
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.goto(`${url}`)
+        await page.pdf({ path: 'api.pdf', format: 'A4' })
+        browser.close()
+        res.send("success")
+    }catch(err){
+        res.send("error")
+    } 
 });
 
 async function main(credentials) {
