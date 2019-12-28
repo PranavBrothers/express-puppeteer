@@ -25,7 +25,8 @@ app.get('/pdf', async(req, res) => {
         await page.goto(`${url}`)
         await page.pdf({ path: 'api.pdf', format: 'A4' })
         browser.close()
-        res.send("success")
+        //res.send("success")
+        res.download('api.pdf')
     }catch(err){
         res.send("error")
     } 
