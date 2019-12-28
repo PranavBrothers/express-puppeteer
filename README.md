@@ -19,3 +19,7 @@ POST  Body - Content Type -- application/json
     "submit":"[name='commit']",
     "screenshot":"github.png"
 }
+
+Generate PDF
+==============
+http://localhost:3000/pdf?url=https://github.com/PranavBrothers/
